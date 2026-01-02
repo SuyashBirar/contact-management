@@ -97,3 +97,11 @@ const getCurrentUser = asyncHandler(async (req, res) => {
         new ApiResponse(200, req.user, "Current user fetched successfully")
     );
 });
+
+
+export {
+    registerUser,
+    loginUser,
+    getCurrentUser,
+    logoutUser
+}

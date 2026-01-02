@@ -80,7 +80,7 @@ const updateContact = asyncHandler(async (req, res) => {
 
 
 
-export const deleteContact = asyncHandler(async (req, res) => {
+const deleteContact = asyncHandler(async (req, res) => {
     const contact = await Contact.findOneAndDelete({
         _id: req.params.contactId,
         owner: req.user._id

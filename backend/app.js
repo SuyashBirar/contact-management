@@ -26,8 +26,23 @@ import contactRouter from "./src/routes/contact.routes.js";
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/contacts", contactRouter);
 
+import { ApiError } from "./src/utils/ApiError.js"
 
+app.use((err, req, res, next) => {
+    console.error(err); // or err.stack
 
+    if (err instanceof ApiError) {
+        return res.status(err.statusCode).json({
+            success: false,
+            message: err.message,
+        });
+    }
+
+    res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+    });
+});
 
 
 export { app }

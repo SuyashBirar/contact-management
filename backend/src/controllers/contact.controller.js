@@ -18,6 +18,10 @@ const createContact = asyncHandler(async (req, res) => {
         message
     });
 
+    console.log("REQ.USER:", req.user);
+    console.log("REQ.BODY:", req.body);
+
+
     return res
         .status(201)
         .json(

@@ -8,10 +8,26 @@ export default function Login() {
 
     const submit = async (e) => {
         e.preventDefault();
-        const res = await loginUser(form);
-        localStorage.setItem("token", res.data.accessToken);
-        navigate("/contacts");
+
+        try {
+            const res = await loginUser(form);
+            console.log("Full response:", res.data);
+
+            // Fix: ApiResponse nesting
+            const accessToken = res.data.data?.accessToken;
+            if (accessToken) {
+                localStorage.setItem("token", accessToken);
+                console.log("Token stored:", localStorage.getItem("token"));
+                navigate("/contacts");
+            } else {
+                console.error("No accessToken:", res.data);
+            }
+        } catch (error) {
+            console.error("Login error:", error.response?.data || error.message);
+        }
     };
+
+
 
     return (
         <div className="min-h-screen flex items-center justify-center">
